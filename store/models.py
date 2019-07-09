@@ -14,5 +14,5 @@ class Product(models.Model):
     productPrice = models.FloatField()
     productDescription = models.TextField()
     productImgPath = models.CharField(max_length=100)
-    categoryID = models.ForeignKey(
-        Category, related_name='+', on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, db_column='categoryID', related_name='+', on_delete=models.CASCADE)
