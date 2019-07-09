@@ -28,10 +28,12 @@ class Command(BaseCommand):
             print('Product already loaded...existing.')
             print(ALREADY_LOADED_ERROR_MESSAGE)
             return
+
         print('Creating category data')
         for name in CATEGORY_NAMES:
             category = Category(categoryName=name)
             category.save()
+
         print('Loading product data from csv file')
         for line in DictReader(open('./product_data.csv')):
             product = Product()
@@ -40,5 +42,5 @@ class Command(BaseCommand):
             product.productDescription = line['productDescription']
             product.productImgPath = line['productImgPath']
             product.category = Category.objects.get(
-                categoryName=line['category'])
+                categoryName=line['productCategory'])
             product.save()
