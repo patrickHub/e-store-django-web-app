@@ -4,14 +4,16 @@ from django.core.management import BaseCommand
 
 from store.models import Product, Category
 
-CATEGORY_NAMES = [
-    'Bubbelgum Crush',
-    'Candy Ice Blast',
-    'Cherry Cola',
-    'Energy Flavour',
-    'Fruit Punch',
-    'Icy Blue Raz'
-]
+CATEGORY_IMAGE_NAMES = {
+    'Bubbelgum Crush': 'bubbelgum_crush.jpg',
+    'Candy Ice Blast': 'candy_ice_blast.jpg',
+    'Cherry Cola': 'cherry_cola.jpg',
+    'Energy Flavour': 'energy_flavour.jpg',
+    'Fruit Punch': 'fruit_punch.jpg',
+    'Icy Blue Raz': 'icy_blue_raz.jpg',
+    'Muscle Growth': 'muscle_growth.jpg',
+    'Before the Training': 'before_the_training.jpg'
+}
 
 ALREADY_LOADED_ERROR_MESSAGE = """
 If you need to reload the product data from the CSV file,
@@ -30,8 +32,9 @@ class Command(BaseCommand):
             return
 
         print('Creating category data')
-        for name in CATEGORY_NAMES:
+        for name in CATEGORY_IMAGE_NAMES.keys():
             category = Category(categoryName=name)
+            category.categoryImgPath = CATEGORY_IMAGE_NAMES[name]
             category.save()
 
         print('Loading product data from csv file')

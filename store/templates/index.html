@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<div class="cat-content">
+  {% for category in categories %} {% static '' as baseUrl %}
+  <a
+    class="cat"
+    href="#"
+    style="background: url({% static 'img/cat/'|add:category.categoryImgPath %});"
+  >
+    <p>{{ category.categoryName }}</p>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+.cat-content {
+  text-align: center;
+}
+.cat {
+  margin: 10px;
+  width: 220px;
+  height: 219px;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.cat p {
+  padding: 10px;
+  background-color: rgba(247, 148, 30, 0.8);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial;
+  text-align: center;
+  height: 50px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.cat:hover {
+  opacity: 0.8;
+  text-decoration: unset;
+}
+.fixed-top-2 {
+  margin-top: 56px;
+}

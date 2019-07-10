@@ -5,6 +5,7 @@ class Category(models.Model):
 
     categoryID = models.AutoField(primary_key=True)
     categoryName = models.CharField(max_length=30)
+    categoryImgPath = models.CharField(max_length=100, null=True)
 
 
 class Product(models.Model):
