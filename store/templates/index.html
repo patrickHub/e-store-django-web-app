@@ -3,7 +3,7 @@
   {% for category in categories %} {% static '' as baseUrl %}
   <a
     class="cat"
-    href="#"
+    href="{% url 'product_cat' category.categoryID %}"
     style="background: url({% static 'img/cat/'|add:category.categoryImgPath %});"
   >
     <p>{{ category.categoryName }}</p>

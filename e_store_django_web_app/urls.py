@@ -21,4 +21,5 @@ from store import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
+    url(r'^cat/(\d+)/products', views.productsPerCategory, name='product_cat')
 ]

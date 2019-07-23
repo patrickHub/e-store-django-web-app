@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="product-content">
+  {% for product in products %}
+    <article class="product-list-item">
+      <header>
+        <h2>
+          <font size="+1" color="#FFFFFF" face="verdana, arial, sans-serif"
+            >{{ product.productName }}</font
+          >
+        </h2>
+      </header>
+      <div class="content-list">
+        <div class="col-left">
+          <figure>
+            <a href="#" title="{{ product.productName }}">
+              <img
+                class="lazy-load"
+                src="{% static 'img/products/'|add:product.productImgPath %}"
+              />
+            </a>
+          </figure>
+        </div>
+        <div class="col-right">
+          <p>
+            <font size="2" face="verdana, arial, sans-serif">
+             {{ product.productDescription }}
+            </font>
+          </p>
+          <a href="#">
+            <p class="read-more"></p>
+          </a>
+        </div>
+        <div class="col-price">
+          <p class="price">{{ product.productPrice }} CHF</p>
+          <p><font size="1" color="#7abb00">In stock</font></p>
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+ 
+</div>
+
+{% endblock %}
