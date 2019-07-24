@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<div class="item-detail">
+	<div class="bread-crumb">
+		<h2>
+			<font size="5" color="#444444" face="verdana, arial, sans-serif">
+				<strong>{{ product.productName }}</strong>
+			</font>
+		</h2>
+		<div>
+			<a href="{% url 'index' %}"><span>E-Store</span></a><span> > </span>
+			<a href="{% url 'product_cat' category.categoryID %}"><span>{{ category.categoryName }}</span></a><span> > </span>
+			<span>{{ product.productName }}</span>
+		</div>
+	</div>
+	<section class="product-detail">
+		<figure>
+				<div id="zoomPad">
+					<img onmousemove="zoomIn(event)" onmouseout="zoomOut()"
+						src="{% static 'img/products/'|add:product.productImgPath %}"/>
+				</div>
+				<div id="zoomPop" 
+					style="background-image: url({% static 'img/products/'|add:product.productImgPath %});">
+				</div>
+		</figure>
+		<div class="product-description">
+				<h2 class="name">{{ product.productName }}</h2>
+				<p>{{ product.productDescription }}</p>
+		</div>
+		<div class="add-cart">
+			<div class="price">
+				<span>
+				  CHF	{{ product.productPrice }}
+				</span>
+			</div>
+			<div class="quantity-selection">
+				<input class="quantity-input" type="text">
+				<input class="add-cart-button" type="button" value="Add to cart">
+			</div>
+			<div class="delivery-info">
+				<span>Delevery in 24h</span>
+			</div>
+		</div>
+	</section>
+	<aside class="cat-products">
+		<div class="title">
+			<h2>Other products of the same category</h2>
+		</div>
+	  {% for item in products %}
+			<div class="product">
+			<figure>
+					<a href="{% url 'product_detail' item.productID %}" title="{{ item.productName }}">
+						<img
+							src="{% static 'img/products/'|add:item.productImgPath %}"
+						/>
+					</a>
+				</figure>
+				<div class="name">
+					<h2>{{ item.productName }}</h2>
+				</div>
+			</div>
+		{% endfor %}
+		
+	</aside>
+</div>
+
+{% endblock %}

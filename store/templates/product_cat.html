@@ -12,7 +12,7 @@
       <div class="content-list">
         <div class="col-left">
           <figure>
-            <a href="#" title="{{ product.productName }}">
+            <a href="{% url 'product_detail' product.productID %}" title="{{ product.productName }}">
               <img
                 class="lazy-load"
                 src="{% static 'img/products/'|add:product.productImgPath %}"
