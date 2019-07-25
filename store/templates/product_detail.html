@@ -34,8 +34,14 @@
 				</span>
 			</div>
 			<div class="quantity-selection">
-				<input class="quantity-input" type="text">
-				<input class="add-cart-button" type="button" value="Add to cart">
+				<form 
+					action="{% url 'product_detail' product.productID %}"
+					method="POST" novalidate>
+					{% csrf_token %}
+					{{ addToCartForm.quantity }}
+					{{ addToCartForm.quantity.errors }}
+					<input class="add-cart-button" type="submit" value="Add to cart">
+				</form>
 			</div>
 			<div class="delivery-info">
 				<span>Delevery in 24h</span>

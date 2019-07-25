@@ -243,3 +243,11 @@ p.read-more {
   font-weight: bold;
   color: #5f5f5f;
 }
+.add-cart .quantity-selection .errorlist {
+  margin: -18px 0px 15px;
+  width: 176px;
+  padding-left: 0px;
+  list-style-type: none;
+  color: #dd2c00;
+  font-weight: bold;
+}
