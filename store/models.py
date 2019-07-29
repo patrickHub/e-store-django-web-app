@@ -17,3 +17,15 @@ class Product(models.Model):
     productImgPath = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, db_column='categoryID', related_name='+', on_delete=models.CASCADE)
+
+
+class Cart(models.Model):
+    cartID = models.AutoField(primary_key=True)
+
+
+class ProductCart(models.Model):
+    cartID = models.ForeignKey(
+        Cart, db_column='cartID', related_name='+', on_delete=models.CASCADE)
+    productID = models.ForeignKey(
+        Product, db_column='productID', related_name='+', on_delete=models.CASCADE)
+    quantity = models.IntegerField()
