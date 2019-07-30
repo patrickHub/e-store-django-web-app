@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
     url(r'^(\d+)/products', views.productsPerCategory, name='product_cat'),
-    url(r'^products/(\d+)', views.productDetail, name='product_detail')
+    url(r'^products/(\d+)', views.productDetail, name='product_detail'),
+    url(r'^products/add_to_cart', views.addToCart, name='add_to_cart')
 
 ]

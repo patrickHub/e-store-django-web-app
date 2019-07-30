@@ -1,24 +1,42 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Sum
+from django.http import Http404
 
 from .models import Category, Product, Cart, ProductCart
 from .forms import AddToCartForm
-from store.dto.itemCart import ItemCart
-from store.serializer.serializer import Serilizer
 
 
 def index(req):
+    # get  request session
+    session = req.session
+    productCarts = None
+    # get the cartID from the session if exist
+    if 'cartID' in session:
+        cartID = session['cartID']
+        # get all 'cartID' productCart
+        productCarts = ProductCart.objects.filter(
+            cartID=cartID).aggregate(totalQuantity=Sum('quantity'))
 
     # get all categories from db
     categories = Category.objects.all()
     data = {
-        'categories': categories
+        'categories': categories,
+        'productCarts': productCarts
     }
     # pass control to index.html template
     return render(req, 'index.html', data)
 
 
 def productsPerCategory(req, categoryID):
+    # get  request session
+    session = req.session
+    productCarts = None
+    # get the cartID from the session if exist
+    if 'cartID' in session:
+        cartID = session['cartID']
+        # get all 'cartID' productCart
+        productCarts = ProductCart.objects.filter(
+            cartID=cartID).aggregate(totalQuantity=Sum('quantity'))
     try:
         # find 'categoryID' category
         category = Category.objects.get(categoryID=categoryID)
@@ -26,7 +44,8 @@ def productsPerCategory(req, categoryID):
         products = Product.objects.filter(category_id=categoryID)
         data = {
             'products': products,
-            'category': category
+            'category': category,
+            'productCarts': productCarts
         }
         # pass control to product_cat.html template
         return render(req, 'product_cat.html', data)
@@ -34,7 +53,8 @@ def productsPerCategory(req, categoryID):
         # if categoryID does not exist then return all products
         products = Product.objects.all()
         data = {
-            'products': products
+            'products': products,
+            'productCarts': productCarts
         }
         return render(req, 'product_cat.html', data)
 
@@ -64,7 +84,7 @@ def productDetail(req, productID):
             cart.save()
             cartID = cart.cartID
             # save the cartID to session
-            req.session['cartID'] = cartID
+            session['cartID'] = cartID
 
         # check if it is a post request
         if req.method == 'POST':
@@ -90,6 +110,10 @@ def productDetail(req, productID):
 
                 # save/update the productCart to DB
                 productCart.save()
+                # add 'addToCartSucceed' key to session to make sure that redirect come from here
+                session['addToCartSucceed'] = True
+                # pass control to addToCart view
+                return redirect(addToCart)
 
         else:  # it is a GET request
             # create a blank addToCart form
@@ -115,3 +139,27 @@ def productDetail(req, productID):
             'products': products
         }
         return render(req, 'product_cat.html', data)
+
+
+def addToCart(req):
+    # get sessioon
+    session = req.session
+    # check weither request is redirect come only from productDetail view
+    if 'addToCartSucceed' in session:
+        # get the cartID from the session
+        cartID = session['cartID']
+        # get all 'cartID' productCart
+        productCarts = ProductCart.objects.filter(
+            cartID=cartID).aggregate(totalQuantity=Sum('quantity'))
+        # delete 'addToCartSucceed' key from session
+        del session['addToCartSucceed']
+        products = Product.objects.all()
+        data = {
+            'productCarts': productCarts,
+            'products': products
+        }
+        return render(req, 'add_to_cart.html', data)
+
+    else:
+        # the request does not come from productDetail view then raise Http404
+        raise Http404

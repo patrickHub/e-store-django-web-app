@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="add-to-cart-succeed">
+  <div class="image">
+    <img src="{% static 'img/green_check.png' %}" />
+  </div>
+  <div class="message">
+    <h5 style="color: #1dc250; font-weight: bold;">
+      The item has been added to your cart
+    </h5>
+    <h5 style="color: #737373;">
+      Total number of your basket: {{ productCarts.totalQuantity }} (articles)
+    </h5>
+  </div>
+  <div class="link">
+    <a href="#">Shopping Cart</a>
+    <a href="#" style="background-color: #ff3300;">Proceed to Checkout</a>
+  </div>
+</div>
+<aside class="cat-products">
+  <div class="title">
+    <h2>These product may interest you</h2>
+  </div>
+  {% for item in products %}
+  <div class="product">
+    <figure>
+      <a
+        href="{% url 'product_detail' item.productID %}"
+        title="{{ item.productName }}"
+      >
+        <img src="{% static 'img/products/'|add:item.productImgPath %}" />
+      </a>
+    </figure>
+    <div class="name">
+      <h2>{{ item.productName }}</h2>
+    </div>
+  </div>
+  {% endfor %}
+</aside>
+
+{% endblock %}
