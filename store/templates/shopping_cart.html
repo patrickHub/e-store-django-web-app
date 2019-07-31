@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="full-shopping-cart">
+  <table style="position:relative;width:100%;height:100%;margin-bottom:-3px">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th style="text-align: center;">Quantity</th>
+        <th style="text-align: center;">Price</th>
+        <th style="text-align: right;">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for productCart in productCartss %}
+      <tr>
+        <td>
+          <div style="display: flex;">
+            <img
+              style="width: 80px; height:80px;"
+              src="{% static 'img/products/'|add:productCart.productID.productImgPath %}"
+              alt=""
+            />
+            <p style="margin-left: 20px">
+              {{ productCart.productID.productName }}
+            </p>
+          </div>
+        </td>
+        <td style="text-align: center;">
+          <div>
+            <input class="button-plus" type="button" value="-" />
+            <input
+              class="quantity-input"
+              type="number"
+              value="{{ productCart.quantity }}"
+            />
+            <input class="button-minus" type="button" value="+" />
+          </div>
+        </td>
+        <td style="text-align: center;">
+          <div>
+            <p>CHF {{ productCart.productID.productPrice }}</p>
+          </div>
+        </td>
+        <td style="text-align: right;">
+          <div>
+            {% load custom_tag %}
+            <p>
+              CHF {% multiply productCart.quantity productCart.productID.productPrice %}
+            </p>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

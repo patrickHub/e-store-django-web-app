@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import Sum
+from django.db.models import Sum, Variance
 from django.http import Http404
 
 from .models import Category, Product, Cart, ProductCart
@@ -163,3 +163,26 @@ def addToCart(req):
     else:
         # the request does not come from productDetail view then raise Http404
         raise Http404
+
+
+def shoppingCart(req):
+    # get request session
+    session = req.session
+    # get cartID from session
+    cartID = session['cartID']
+
+    # check if it's a POST request
+    if req.method == 'POST':
+        # get and update quantity from request
+        pass
+
+    # get all 'cartID' productCart
+    productCarts = ProductCart.objects.filter(
+        cartID=cartID).aggregate(totalQuantity=Sum('quantity'))
+    productCartss = ProductCart.objects.filter(
+        cartID=cartID)
+    data = {
+        'productCarts': productCarts,
+        'productCartss': productCartss
+    }
+    return render(req, 'shopping_cart.html', data)

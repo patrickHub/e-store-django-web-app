@@ -288,3 +288,45 @@ p.read-more {
   font-weight: bold;
   text-decoration: none;
 }
+
+.full-shopping-cart table {
+  border-spacing: 15px;
+}
+.full-shopping-cart table td {
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+.full-shopping-cart table tr {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.full-shopping-cart thead {
+  border-bottom: 2px solid;
+}
+.full-shopping-cart tbody:before {
+  line-height: 1em;
+  content: ".";
+  color: white;
+  display: block;
+}
+.full-shopping-cart td p {
+  margin-top: 25px;
+  font: 700 18px robotoc, Arial Narrow, sans-serif;
+}
+.full-shopping-cart td .quantity-input {
+  width: 70px;
+}
+.full-shopping-cart td .button-plus {
+  width: 35px;
+  background-color: #0f09f5;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #0f09f5;
+}
+.full-shopping-cart td .button-minus {
+  width: 35px;
+  background-color: #ff3300;
+  color: white;
+  border: 1px solid #ff3300;
+  font-weight: bold;
+}

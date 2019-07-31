@@ -79,7 +79,11 @@
           <a class="p-2 text-dark" href="#"><strong>Home</strong></a>
           <a class="p-2 text-dark" href="#"><strong>Order History</strong></a>
           <a class="p-2 text-dark" href="#"><strong>LindedIn</strong></a>
-          <a class="p-2 text-dark" href="#">
+          <a
+            class="p-2 text-dark"
+            href="{% url 'shopping_cart' %}"
+            title="{{ productCarts.totalQuantity }} articles"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
