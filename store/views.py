@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import Sum, Variance
+from django.db.models import Sum, Variance, Field, F
 from django.http import Http404
 
 from .models import Category, Product, Cart, ProductCart
@@ -174,15 +174,33 @@ def shoppingCart(req):
     # check if it's a POST request
     if req.method == 'POST':
         # get and update quantity from request
-        pass
+        quantity = int(req.POST.get('quantity'))
+        productID = int(req.POST.get('productID'))
+        print(f'productID: {productID}, quantity: {quantity}')
+
+        # get productCart and update its quantity
+        productCart = ProductCart.objects.get(
+            cartID=cartID, productID=productID)
+        # the productCart exist then update its quantity
+        productCart.quantity = quantity
+
+        if productCart.quantity == 0:
+            productCart.delete()
+        else:
+            productCart.save()
 
     # get all 'cartID' productCart
     productCarts = ProductCart.objects.filter(
         cartID=cartID).aggregate(totalQuantity=Sum('quantity'))
     productCartss = ProductCart.objects.filter(
         cartID=cartID)
+    # get total price
+    total = 0
+    for item in productCartss:
+        total += item.quantity * item.productID.productPrice
     data = {
         'productCarts': productCarts,
+        'total': total,
         'productCartss': productCartss
     }
     return render(req, 'shopping_cart.html', data)

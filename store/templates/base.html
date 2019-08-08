@@ -107,7 +107,7 @@
         </div>
       </header>
     </div>
-    <main class="container">
+    <main class="container" style="margin-bottom:250px;">
       {% block content %} {% endblock %}
     </main>
 
@@ -157,6 +157,7 @@
         src="{% static 'js/bootstrap.min.js' %}"
       ></script>
       <script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+      {% block jquery %} {% endblock %}
     </footer>
   </body>
 </html>

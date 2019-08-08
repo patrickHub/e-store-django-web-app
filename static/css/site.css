@@ -315,6 +315,7 @@ p.read-more {
 }
 .full-shopping-cart td .quantity-input {
   width: 70px;
+  text-align: center;
 }
 .full-shopping-cart td .button-plus {
   width: 35px;
@@ -329,4 +330,63 @@ p.read-more {
   color: white;
   border: 1px solid #ff3300;
   font-weight: bold;
+}
+
+.summary {
+  width: 40%;
+  min-width: 380px;
+  float: right;
+  border: 1px solid #d5d5d5;
+  border-width: 0 1px;
+}
+.summary .delivery-free {
+  width: 100%;
+  border-bottom: 1px solid #d5d5d5;
+  display: table;
+  padding: 13px 16px;
+}
+.summary .promo-code {
+  width: 100%;
+  border-bottom: 1px solid #d5d5d5;
+  display: table;
+  padding: 16px;
+}
+.summary .total {
+  width: 100%;
+  border-bottom: 1px solid #d5d5d5;
+  display: table;
+  padding: 13px 16px;
+}
+.summary .label {
+  display: table-cell;
+  font: 700 18px robotoc, Arial Narrow, sans-serif;
+}
+.summary .price {
+  display: table-cell;
+  text-align: right;
+  text-transform: uppercase;
+  font: 700 18px robotoc, Arial Narrow, sans-serif;
+}
+
+.summary .label::before {
+  content: "\2714";
+  color: #5abe44;
+  margin: -5px 8px 0 0;
+  display: inline-block;
+  font: 400 20px pictenza;
+  font-weight: bold;
+}
+.summary .serious-checkout {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid#ff6900;
+  text-align: center;
+  background-color: #ff6900;
+}
+.summary .serious-checkout a {
+  color: white;
+  font: 700 18px Arial, "Arial Unicode MS", Helvetica, "DejaVu Sans",
+    "Lucida Sans Unicode", sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
 }

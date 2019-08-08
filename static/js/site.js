@@ -11,3 +11,19 @@ function zoomOut() {
   var element = document.getElementById("zoomPop");
   element.style.display = "none";
 }
+
+function updateProductQuantityInCart() {
+  $(".button-plus").on("click", function() {
+    currentQuantityInput = $(this)
+      .prev()
+      .prev();
+    currentQuantityInput.val(parseInt(currentQuantityInput.val()) + 1);
+    console.log("quantity: ");
+    document.getElementById("form-" + this.id).submit();
+  });
+  $(".button-minus").on("click", function() {
+    currentQuantityInput = $(this).next();
+    currentQuantityInput.val(parseInt(currentQuantityInput.val()) - 1);
+    document.getElementById("form-" + this.id).submit();
+  });
+}

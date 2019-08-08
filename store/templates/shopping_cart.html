@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="full-shopping-cart">
-  <table style="position:relative;width:100%;height:100%;margin-bottom:-3px">
+  <table style="position:relative;width:100%;height:100%;">
     <thead>
       <tr>
         <th>Product</th>
@@ -26,13 +26,27 @@
         </td>
         <td style="text-align: center;">
           <div>
-            <input class="button-plus" type="button" value="-" />
-            <input
-              class="quantity-input"
-              type="number"
-              value="{{ productCart.quantity }}"
-            />
-            <input class="button-minus" type="button" value="+" />
+            <form
+              id="form-{{ productCart.productID.productID }}"
+              method="POST"
+              action="{% url 'shopping_cart' %}"
+            >
+              {% csrf_token %}
+              <input class="button-minus" id="{{ productCart.productID.productID }}" type="button" value="-" />
+              <input
+                class="quantity-input"
+                type="number"
+                name="quantity"
+                readonly
+                value="{{ productCart.quantity }}"
+              />
+              <input
+                type="hidden"
+                name="productID"
+                value="{{ productCart.productID.productID }}"
+              />
+              <input class="button-plus" id="{{ productCart.productID.productID }}" type="button" value="+" />
+            </form>
           </div>
         </td>
         <td style="text-align: center;">
@@ -53,4 +67,56 @@
     </tbody>
   </table>
 </div>
+<div class="summary">
+  <div class="delivery-free">
+    <div class="label">
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;">
+            Shipping post 
+        </font>
+      </font>
+    </div>
+    <div class="price">
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit; color: #5abe44;">
+          Free 
+        </font>
+      </font>
+    </div>
+  </div>
+  <div class="promo-code">
+    <font style="vertical-align: inherit;">
+      <font style="vertical-align: inherit;">
+        Enter code promo 
+      </font>
+    </font>
+  </div>
+  <div class="total">
+    <div class="label">
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;">
+          Total 
+        </font>
+      </font>
+    </div>
+    <div class="price">
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;">
+          CHF  {{total }}
+        </font>
+      </font>
+    </div>
+  </div>
+  <div class="serious-checkout">
+    <a href="#">Checkout</a>
+  </div>
+</div>
+
+{% endblock %}
+{% block jquery %}
+   <script type="text/javascript">
+      $(document).ready(function(){
+        updateProductQuantityInCart();
+    });
+  </script>
 {% endblock %}
